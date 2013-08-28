@@ -1,0 +1,256 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"get",
+				"getFormula"
+			],
+			[
+				"formula",
+				"formulaAjax"
+			],
+			[
+				"for",
+				"formule"
+			],
+			[
+				"arr",
+				"arrGrootheidSybool"
+			],
+			[
+				"a",
+				"arrGrootheidSybool"
+			],
+			[
+				"form",
+				"formulaJSON"
+			],
+			[
+				"prin",
+				"print_r"
+			],
+			[
+				"json",
+				"json_encode"
+			],
+			[
+				"array_p",
+				"array_push"
+			],
+			[
+				"groot",
+				"grootheid_id"
+			],
+			[
+				"gr",
+				"grootheden"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"instl",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/D/testGit/projects/youtubedemo2/index.html",
+		"/D/testGit/projects/youtubedemo2/README.md",
+		"/D/testGit/projects/youtube demo/index.html",
+		"/C/Users/Wensley/.ssh/id_rsa.pub",
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/getFormula.php",
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/js/formula_obtainment.js",
+		"/C/Users/Wensley/Desktop/root (back-up) 2039 10-8-2013/js/formula_obtainment.js",
+		"/C/Users/Wensley/Desktop/root (back-up) 1638 6-8-2013/functiesPHP.php",
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/functiesPHP.php",
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/index.php",
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/getArrayGrootheidSymbool.php",
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/functiesJSON.php",
+		"/C/Users/Wensley/Desktop/xampp/htdocs/Webapp/index.php",
+		"/H/xampp-portable/htdocs/index.php",
+		"/C/Users/Wensley/Desktop/scratch/hallo.php",
+		"/D/webProjects/Webapp/index.php",
+		"/C/Users/Wensley/AppData/Roaming/Sublime Text 2/Packages/AdvancedNewFile/AdvancedNewFile.sublime-settings",
+		"/C/Users/Wensley/AppData/Roaming/Sublime Text 2/Packages/User/AdvancedNewFile.sublime-settings",
+		"/C/Users/Wensley/Bureaublad/scratch/hallo.php",
+		"/C/Users/Wensley/AppData/Roaming/Sublime Text 2/Packages/SideBarEnhancements/messages/11.13.2012.1305.0.txt",
+		"/C/Users/Wensley/AppData/Roaming/Sublime Text 2/Packages/AdvancedNewFile/README.md",
+		"/C/Users/Wensley/AppData/Local/Temp/7zO2AC.tmp/script1.php",
+		"/C/Users/Wensley/Desktop/script1.php"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			");\n",
+			"'],\n",
+			"grootheidID",
+			"sendToServer",
+			"data",
+			"[], ",
+			"arrFormule",
+			"i",
+			");\n",
+			"$grootheidID",
+			"SELECT `formules`.`formule` , `grootheden`.`grootheid_symbool` FROM `webapp`.`formules` INNER JOIN `webapp`.`grootheden` ON `grootheden`.`grootheid_id` = `formules`.`grootheid_id` = %s",
+			"grootheden.grootheid_symbool",
+			"getSymboolGrootheid",
+			"$SymboolGrootheid",
+			"GrootheidSymbool",
+			"td",
+			"`grootheid`",
+			"grootheid",
+			"test webbapp",
+			"`.`",
+			"`test webbapp`"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 39.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"in",
+				"index.html"
+			],
+			[
+				"php",
+				"getFormula.php"
+			],
+			[
+				"js",
+				"js/formula_obtainment.js"
+			],
+			[
+				"get",
+				"getFormula.php"
+			],
+			[
+				"funci",
+				"functiesJSON.php"
+			],
+			[
+				"funct",
+				"functiesPHP.php"
+			],
+			[
+				"ind",
+				"index.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 278.0,
+	"status_bar_visible": true
+}
