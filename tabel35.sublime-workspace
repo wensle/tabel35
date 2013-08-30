@@ -4,12 +4,24 @@
 		"selected_items":
 		[
 			[
-				"ind",
-				"indexFormule"
+				"json",
+				"jsonRow"
 			],
 			[
 				"fo",
-				"formules"
+				"getFormula"
+			],
+			[
+				"arr",
+				"arrFormulePieces"
+			],
+			[
+				"h",
+				"href"
+			],
+			[
+				"ind",
+				"indexFormule"
 			],
 			[
 				"p",
@@ -28,10 +40,6 @@
 				"formule"
 			],
 			[
-				"arr",
-				"arrGrootheidSybool"
-			],
-			[
 				"a",
 				"arrGrootheidSybool"
 			],
@@ -42,10 +50,6 @@
 			[
 				"prin",
 				"print_r"
-			],
-			[
-				"json",
-				"json_encode"
 			],
 			[
 				"array_p",
@@ -64,18 +68,13 @@
 	"buffers":
 	[
 		{
-			"file": "index.php",
+			"contents": "<?php\n\nfunction getArrSymboolGrootheid (){\n	$querySymboolGrootheid = sprintf(\"SELECT `grootheid_symbool` FROM `webapp`.`grootheden`\");\n	$resultaatSymboolGrootheid = mysql_query($querySymboolGrootheid);\n	if (!$resultaatSymboolGrootheid) {\n		$message  = 'Invalid query: ' . mysql_error() . \"\\n\";\n		$message .= 'Whole query: ' . $querySymboolGrootheid;\n		die($message);\n}\n\n$arrSymboolGrootheid = array();\n\nwhile ($rowSymboolGrootheid = mysql_fetch_row($resultaatSymboolGrootheid)) {\n	foreach ($rowSymboolGrootheid as $symboolGrootheid) {\n		if (!in_array($symboolGrootheid, $arrSymboolGrootheid)) {\n			$arrSymboolGrootheid[]=$symboolGrootheid;\n			}\n			};\n}\n\nreturn $arrSymboolGrootheid;\n\n};\n\nfunction getFormule($grootheidID, $arrSymboolGrootheid){\n	// Formulate Query\n	// This is the best way to perform an SQL query\n	// For more examples, see mysql_real_escape_string()\n	$queryFormule = sprintf(\"SELECT `formules`.`formule` , `grootheden`.`grootheid_symbool` FROM `webapp`.`formules` INNER JOIN `webapp`.`grootheden` ON `formules`.`grootheid_id` = %s AND `grootheden`.`grootheid_id` = %s\",\n$grootheidID, $grootheidID);\n\n	// Perform Query\n	$resultaatFormule = mysql_query($queryFormule);\n\n	// Check result\n	// This shows the actual query sent to MySQL, and the error. Useful for debugging.\n	if (!$resultaatFormule) {\n		$message  = 'Invalid query: ' . mysql_error() . \"\\n\";\n		$message .= 'Whole query: ' . $queryFormule;\n		die($message);\n	};\n\n	/**\n	 * Zolang er een row word gereturned (door functie mysql_fetch_row)\n	 * dan wordt de formule gestopt in $formule\n	 * en de grootheid in $symbool\n	 * voor elke row\n	 */\n	\n	/**\n	 * Dit gaat een JSON object maken, daarom een associative array.\n	 */\n	\n	$jsonResponse = array('formules' => array());\n\n	while($row = mysql_fetch_array($resultaatFormule)){\n		$jsonRow = array(\n			\"formule\" => $row['formule'],\n			\"symbool\" => $row['grootheid_symbool']\n			);\n		array_push($jsonResponse['formules'], $jsonRow);\n	}\n\n	echo json_encode($jsonResponse);\n\n};\n\n?>",
+			"file": "functiesPHP.php",
+			"file_size": 2059,
+			"file_write_time": 130221518108561448,
 			"settings":
 			{
-				"buffer_size": 2571,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "js/formula_obtainment.js",
-			"settings":
-			{
-				"buffer_size": 1566,
+				"buffer_size": 1991,
 				"line_ending": "Windows"
 			}
 		}
@@ -112,17 +111,22 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/execution.php",
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/getFormula.php",
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/functiesPHP.php",
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/index.php",
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/getArrayGrootheidSymbool.php",
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/js/formula_obtainment.js",
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/tabel35.sublime-workspace",
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/LICENSE.md",
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/index.html",
+		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/css/main.css",
 		"/D/testGit/projects/youtubedemo2/index.html",
 		"/D/testGit/projects/youtubedemo2/README.md",
 		"/D/testGit/projects/youtube demo/index.html",
 		"/C/Users/Wensley/.ssh/id_rsa.pub",
-		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/getFormula.php",
-		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/js/formula_obtainment.js",
 		"/C/Users/Wensley/Desktop/root (back-up) 2039 10-8-2013/js/formula_obtainment.js",
 		"/C/Users/Wensley/Desktop/root (back-up) 1638 6-8-2013/functiesPHP.php",
-		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/functiesPHP.php",
-		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/index.php",
-		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/getArrayGrootheidSymbool.php",
 		"/C/Users/Wensley/Desktop/USBWebserver v8.5/8.5/root/functiesJSON.php",
 		"/C/Users/Wensley/Desktop/xampp/htdocs/Webapp/index.php",
 		"/H/xampp-portable/htdocs/index.php",
@@ -152,6 +156,21 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"json",
+			"Stashed",
+			"formules",
+			"0px",
+			"valueFormule",
+			"indexFormule",
+			"formules",
+			"indexFormule",
+			"\");\n",
+			"data",
+			"json",
+			"elementHref",
+			"elementID",
+			"});\n",
+			"klop",
 			"setElementID",
 			"grootheid",
 			"tony",
@@ -190,7 +209,7 @@
 		"replace_history":
 		[
 		],
-		"reverse": false,
+		"reverse": true,
 		"show_context": true,
 		"use_buffer2": true,
 		"whole_word": false,
@@ -199,23 +218,23 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "index.php",
+					"file": "functiesPHP.php",
 					"settings":
 					{
-						"buffer_size": 2571,
+						"buffer_size": 1991,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								789,
-								789
+								479,
+								479
 							]
 						],
 						"settings":
@@ -310,127 +329,10 @@
 							},
 							"sublimelinter_wrap_find": true,
 							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 27.0,
-						"translation.y": 513.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "js/formula_obtainment.js",
-					"settings":
-					{
-						"buffer_size": 1566,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								954,
-								954
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 654.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -480,20 +382,44 @@
 		"selected_items":
 		[
 			[
-				"ob",
+				"inde",
+				"index.php"
+			],
+			[
+				"wor",
+				"tabel35.sublime-workspace"
+			],
+			[
+				"form",
 				"js/formula_obtainment.js"
 			],
 			[
-				"in",
-				"index.php"
+				"",
+				"LICENSE.md"
 			],
 			[
 				"php",
 				"getFormula.php"
 			],
 			[
+				"ind",
+				"index.html"
+			],
+			[
+				"css",
+				"css/main.css"
+			],
+			[
 				"js",
 				"js/formula_obtainment.js"
+			],
+			[
+				"ob",
+				"js/formula_obtainment.js"
+			],
+			[
+				"in",
+				"index.php"
 			],
 			[
 				"get",
@@ -506,10 +432,6 @@
 			[
 				"funct",
 				"functiesPHP.php"
-			],
-			[
-				"ind",
-				"index.php"
 			]
 		],
 		"width": 0.0
