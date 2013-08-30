@@ -21,22 +21,8 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
-        <?php include_once('db.php'); ?>
-        
-     
-			<h1>Test Formules</h1>
 
-            <?php include_once('functiesPHP.php') ?>
-            <h2>Klikbaar, uit de database, met functies:</h2>
-            <?php $arrSymboolGrootheid = getArrSymboolGrootheid(); ?>
-            <h2>getFormule, grootheid_id = 1</h2>
-            <?php getFormule(1, $arrSymboolGrootheid); ?>
-            <h2>getFormule, grootheid_id = 2</h2>
-            <?php //getFormule(2, $arrSymboolGrootheid); ?>
-            <h2> getFormule, grootheid_id = 4</h2>
-            <?php //getFormule(4, $arrSymboolGrootheid); ?>
 
-<button type="button" id="testButton">TEST AJAX</button>
 
    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
@@ -49,12 +35,5 @@
 				});
         </script>
 
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src='//www.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
     </body>
 </html>

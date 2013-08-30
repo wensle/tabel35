@@ -5,43 +5,36 @@ function getFormula(grootheidSymbool){
 	};
 	$.getJSON("getFormula.php", data, function(json){
 		console.log("getFormula.php is gelukt!");
-		var arrFormulePieces = "";
-			$.each(json.formules, function(indexFormule, klop){
-				arrFormulePieces = klop.formule.split(",");
-				var arr = [], elementID = "";
+		var arrFormulePieces = [];
+		var formules = json['formules-' + data.grootheidSymbool.replace(/["']/g, "")];
+			$.each(formules, function(formuleIndex, formuleDB){
+				arrFormulePieces = formuleDB.formule.split(",");
+				var arr = [], href = "";
 				$.each(arrFormulePieces, function(index, value){
 					if ($.inArray(value, arrGrootheidSybool) > -1){
-						elementID = "\\href{javascript:getFormula(\"\'" + value +"\'\")}" + "{" + value + "}";
-						arr.push(elementID);}
-					else if ($.inArray(value, arrGrootheidSybool) === -1){
-						arr.push(value);
-						json.formules[indexFormule].formule = arr.join("");
+						href = "\\href{javascript:getFormula(\"\'" + value +"\'\")}" + "{" + value + "}";
+						arr.push(href);
 					}
-					else{
-						arr.push(value);}
+					else {
+						arr.push(value);
+					}
+					formules[formuleIndex].formule = arr.join("");
 				});
-				// var pl = bla();
-				// console.log(pl);
 				$( '<p>', {
-					html: '$$' + json.formules[1].symbool + '= ' + arr.join("") + '$$',
+					html: '$$' + formules[formuleIndex].symbool + '= ' + formules[formuleIndex].formule + '$$',
 					'class': 'formula'
 				}).appendTo( "body" );
 				MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-				console.log(json.formules[indexFormule].formule);
 			});
-			console.log(json.formules);
 	})
 	.fail(function() { console.log("FAIL: " + grootheidSymbool); });
 }
 $(document).ready(function() {
-		$.getJSON('getArrayGrootheidSymbool.php', function(json){
-			console.log("AJAX: functiesJSON.php is gelukt");
-			window.arrGrootheidSybool = json;
-		});
+	$.getJSON('getArrayGrootheidSymbool.php', function(json){
+		console.log("AJAX: getArrayGrootheidSymbool.php is gelukt");
+		window.arrGrootheidSybool = json;
+			});
 	(function() {
 		getFormula("'t'");
 	})();
-	document.getElementById("testButton").onclick = function() {
-		getFormula("'s'");
-	};
 });
