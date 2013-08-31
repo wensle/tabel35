@@ -6,8 +6,7 @@ function getFormula(grootheidSymbool){
 	$.getJSON("getFormula.php", data, function(json){
 		console.log("getFormula.php is gelukt!");
 		var arrFormulePieces = [];
-		var formules = json['formules-' + data.grootheidSymbool.replace(/["']/g, "")];
-			$.each(formules, function(formuleIndex, formuleDB){
+			$.each(json['children'], function(formuleIndex, formuleDB){
 				arrFormulePieces = formuleDB.formule.split(",");
 				var arr = [], href = "";
 				$.each(arrFormulePieces, function(index, value){
@@ -18,14 +17,37 @@ function getFormula(grootheidSymbool){
 					else {
 						arr.push(value);
 					}
-					formules[formuleIndex].formule = arr.join("");
+					json['children'][formuleIndex].formule = arr.join("");
 				});
 				$( '<p>', {
-					html: '$$' + formules[formuleIndex].symbool + '= ' + formules[formuleIndex].formule + '$$',
+					html: '$$' + json['children'][formuleIndex].symbool + '= ' + json['children'][formuleIndex].formule + '$$',
 					'class': 'formula'
 				}).appendTo( "body" );
-				MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+
+
 			});
+				var nodes = tree.nodes(json);
+				var links = tree.links(nodes);
+				// console.log(nodes);
+
+				var node = svg.selectAll(".node")
+					.data(nodes)
+					.enter()
+					.append("g")
+						.attr("class", "node")
+						.attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")";}) ;
+
+				node.append("circle")
+					.attr("r", 10)
+					.attr("fill", "steelblue");
+
+				node.append("text")
+					.text(function (d) {
+						var mathJax = '$$' + d.symbool + '= ' + d.formule + '$$';
+						console.log(mathJax);
+						return mathJax;
+					});
+				MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 	})
 	.fail(function() { console.log("FAIL: " + grootheidSymbool); });
 }

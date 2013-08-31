@@ -20,14 +20,15 @@ $grootheidSymbool);
 		$message .= 'Whole query: ' . $queryFormule;
 		die($message);
 	};
-	$jsonResponse = array('formules-' . str_replace("'", "", $grootheidSymbool) => array());
+	$jsonResponse = array('grootheid' => "", 'children' => array());
 
 	while($row = mysql_fetch_array($resultaatFormule)){
 		$jsonRow = array(
 			"formule" => $row['formule'],
 			"symbool" => $row['grootheid_symbool']
 			);
-		array_push($jsonResponse['formules-' . str_replace("'", "", $grootheidSymbool)], $jsonRow);
+		array_push($jsonResponse['children'], $jsonRow);
+		$jsonResponse['grootheid'] = $row['formule'];
 	}
 
 	echo json_encode($jsonResponse);
