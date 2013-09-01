@@ -23,31 +23,8 @@ function getFormula(grootheidSymbool){
 					html: '$$' + json['children'][formuleIndex].symbool + '= ' + json['children'][formuleIndex].formule + '$$',
 					'class': 'formula'
 				}).appendTo( "body" );
-
-
-			});
-				var nodes = tree.nodes(json);
-				var links = tree.links(nodes);
-				// console.log(nodes);
-
-				var node = svg.selectAll(".node")
-					.data(nodes)
-					.enter()
-					.append("g")
-						.attr("class", "node")
-						.attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")";}) ;
-
-				node.append("circle")
-					.attr("r", 10)
-					.attr("fill", "steelblue");
-
-				node.append("text")
-					.text(function (d) {
-						var mathJax = '$$' + d.symbool + '= ' + d.formule + '$$';
-						console.log(mathJax);
-						return mathJax;
-					});
 				MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+			});
 	})
 	.fail(function() { console.log("FAIL: " + grootheidSymbool); });
 }
