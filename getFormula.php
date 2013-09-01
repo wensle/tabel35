@@ -7,7 +7,7 @@ function getFormule($grootheidSymbool){
 	// Formulate Query
 	// This is the best way to perform an SQL query
 	// For more examples, see mysql_real_escape_string()
-	$queryFormule = sprintf("SELECT `formules`.`formule` , `grootheden`.`grootheid_symbool` FROM `webapp`.`formules` INNER JOIN `webapp`.`grootheden` ON `formules`.`grootheid_id` = `grootheden`.`grootheid_id` WHERE  `grootheden`.`grootheid_symbool` = %s",
+	$queryFormule = sprintf("SELECT `grootheden`.`grootheid` , `grootheden`.`grootheid_symbool` , `formules`.`formule_omschrijving` , `formules`.`formule` FROM `webapp`.`formules` INNER JOIN `webapp`.`grootheden` ON `formules`.`grootheid_id` = `grootheden`.`grootheid_id` WHERE  `grootheden`.`grootheid_symbool` = %s",
 $grootheidSymbool);
 
 	// Perform Query
@@ -20,15 +20,26 @@ $grootheidSymbool);
 		$message .= 'Whole query: ' . $queryFormule;
 		die($message);
 	};
-	$jsonResponse = array('grootheid' => "", 'children' => array());
+
+	$row = mysql_fetch_array($resultaatFormule);
+
+	$jsonResponse = array(
+		"id" => "",
+		"name" => $row['grootheid'],
+		"data" => new stdClass(),
+		"children" => array());
 
 	while($row = mysql_fetch_array($resultaatFormule)){
 		$jsonRow = array(
-			"formule" => $row['formule'],
-			"symbool" => $row['grootheid_symbool']
+			"id" => "",
+			"name" => "",
+			"data" => array(
+				"grootheid" => $row['grootheid'],				
+				"symbool" => $row['grootheid_symbool'],
+				"formule" => $row['formule']),
+			"children" => ""
 			);
-		array_push($jsonResponse['children'], $jsonRow);
-		$jsonResponse['grootheid'] = $row['formule'];
+		array_push($jsonResponse["children"], $jsonRow);
 	}
 
 	echo json_encode($jsonResponse);
