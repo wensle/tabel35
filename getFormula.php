@@ -1,6 +1,10 @@
 <?php
+session_start();
 include_once('db.php');
-
+if(isset($_SESSION['idNode']))
+    $_SESSION['idNode']++;
+else
+    $_SESSION['idNode'] = 1;
 $grootheidSymbool = $_GET["grootheidSymbool"];
 
 function getFormule($grootheidSymbool){
@@ -24,26 +28,27 @@ $grootheidSymbool);
 	$row = mysql_fetch_array($resultaatFormule);
 
 	$jsonResponse = array(
-		"id" => "",
+		"id" => "node" . $_SESSION['idNode'],
 		"name" => $row['grootheid'],
 		"data" => new stdClass(),
 		"children" => array());
+    $_SESSION['idNode']++;
+
 
 	while($row = mysql_fetch_array($resultaatFormule)){
 		$jsonRow = array(
-			"id" => "",
-			"name" => "",
+			"id" => "node" . $_SESSION['idNode'],
+			"name" => $row['formule_omschrijving'],
 			"data" => array(
 				"grootheid" => $row['grootheid'],				
 				"symbool" => $row['grootheid_symbool'],
 				"formule" => $row['formule']),
-			"children" => ""
+			"children" => array()
 			);
 		array_push($jsonResponse["children"], $jsonRow);
+    $_SESSION['idNode']++;
 	}
-
 	echo json_encode($jsonResponse);
-
 };
 
 getFormule($grootheidSymbool);
