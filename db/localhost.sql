@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 28 aug 2013 om 20:59
+-- Genereertijd: 11 sep 2013 om 23:32
 -- Serverversie: 5.5.20
 -- PHP-Versie: 5.3.9
 
@@ -16,6 +16,11 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
+--
+-- Database: `test`
+--
+CREATE DATABASE `test` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `test`;
 --
 -- Database: `webapp`
 --
@@ -44,26 +49,30 @@ CREATE TABLE IF NOT EXISTS `eenheden` (
 CREATE TABLE IF NOT EXISTS `formules` (
   `formule_id` int(11) NOT NULL AUTO_INCREMENT,
   `grootheid_id` int(11) NOT NULL,
+  `subgroep_formules_id` int(11) NOT NULL,
   `formule` varchar(50) NOT NULL COMMENT 'Dit is de formule zelf, geformatteerd in LATEX. De spaties is waar de formule gescheiden wordt.',
   `formule_omschrijving` varchar(70) NOT NULL,
   PRIMARY KEY (`formule_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel `formules`
 --
 
-INSERT INTO `formules` (`formule_id`, `grootheid_id`, `formule`, `formule_omschrijving`) VALUES
-(1, 1, 'v,t', 'verplaatsing bij eenparige beweging'),
-(2, 1, 'v,_{gem},t', 'verplaatsing bij willekeurige beweging'),
-(3, 1, '\\frac{1}{2},a,t,^{2}', 'versnelde beweging zonder beginsnelheid'),
-(4, 1, '\\frac{1}{2},a,t,^{2} +,v,(0),t', 'versnelde beweging met beginsnelheid'),
-(5, 2, '\\frac{,s,}{,v,}', 'tijd bij eenparige beweging'),
-(6, 2, '\\frac{,s,}{,v,_{gem}}', 'tijd bij gemiddelde snelheid'),
-(7, 2, '\\sqrt{\\frac{2\\cdot,s,}{,a,}}', 'tijd bij versnelde beweging zonder beginsnelheid'),
-(8, 1, '\\Delta ,x, = ,x, (t) - ,x, (0)', 'verplaatsing'),
-(9, 4, '\\frac{\\Delta ,v,}{\\Delta ,t,}', 'gemiddelde versnelling'),
-(10, 4, '\\frac{2\\cdot ,s}{,t,^{2}}', 'versnelling bij een versnelde beweging zonder beginsnelheid');
+INSERT INTO `formules` (`formule_id`, `grootheid_id`, `subgroep_formules_id`, `formule`, `formule_omschrijving`) VALUES
+(1, 1, 1, 'v,t', 'verplaatsing bij eenparige beweging'),
+(2, 1, 1, 'v,_{gem},t', 'verplaatsing bij willekeurige beweging'),
+(3, 1, 1, '\\frac{1}{2},a,t,^{2}', 'versnelde beweging zonder beginsnelheid'),
+(4, 1, 1, '\\frac{1}{2},a,t,^{2} +,v,(0),t', 'versnelde beweging met beginsnelheid'),
+(5, 2, 1, '\\frac{,s,}{,v,}', 'tijd bij eenparige beweging'),
+(6, 2, 1, '\\frac{,s,}{,v,_{gem}}', 'tijd bij gemiddelde snelheid'),
+(7, 2, 1, '\\sqrt{\\frac{2\\cdot,s,}{,a,}}', 'tijd bij versnelde beweging zonder beginsnelheid'),
+(8, 1, 1, '\\Delta ,x, = ,x, (t) - ,x, (0)', 'verplaatsing'),
+(9, 4, 1, '\\frac{\\Delta ,v,}{\\Delta ,t,}', 'gemiddelde versnelling'),
+(10, 4, 1, '\\frac{2\\cdot ,s}{,t,^{2}}', 'versnelling bij een versnelde beweging zonder beginsnelheid'),
+(11, 1, 2, 'x(t)=,v,_{x},t', 'horizontale verplaatsing'),
+(12, 1, 2, 'y(t)=\\frac{1}{2}g,t,^{2}', 'verticale verplaatsing'),
+(13, 2, 6, '\\Delta ,t, = ,\\frac{\\Delta ,\\varphi,}{,T,}', 'tijd bij faseverschil');
 
 -- --------------------------------------------------------
 
@@ -96,21 +105,23 @@ INSERT INTO `groepen_formules` (`groep_formules_id`, `groep_formules`) VALUES
 
 CREATE TABLE IF NOT EXISTS `grootheden` (
   `grootheid_id` int(11) NOT NULL AUTO_INCREMENT,
-  `grootheid_woord` varchar(50) NOT NULL COMMENT 'Hier staat de woorden die voor het grootheid staan.',
+  `grootheid` varchar(50) NOT NULL COMMENT 'Hier staat de woorden die voor het grootheid staan.',
   `grootheid_symbool` varchar(10) NOT NULL COMMENT 'Hier staat de symbolen die voor het grootheid staan, geformatteerd in LATEX.',
   PRIMARY KEY (`grootheid_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel `grootheden`
 --
 
-INSERT INTO `grootheden` (`grootheid_id`, `grootheid_woord`, `grootheid_symbool`) VALUES
+INSERT INTO `grootheden` (`grootheid_id`, `grootheid`, `grootheid_symbool`) VALUES
 (1, 'verplaatsing', 's'),
 (2, 'tijd', 't'),
 (3, 'snelheid', 'v'),
 (4, 'versnelling', 'a'),
-(6, 'verplaatsing', 'x');
+(6, 'verplaatsing', 'x'),
+(7, 'frequentie', 'f'),
+(8, 'fase', '\\varphi');
 
 -- --------------------------------------------------------
 

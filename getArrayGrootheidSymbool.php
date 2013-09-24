@@ -12,12 +12,8 @@ include_once('db.php');
                     die($message);
                 }
 
-                $arrSymboolGrootheid = array();
-
-                while ($rowSymboolGrootheid = mysql_fetch_row($resultaatSymboolGrootheid)) {
-                    foreach ($rowSymboolGrootheid as $symboolGrootheid) {
-                            $arrSymboolGrootheid[]=$symboolGrootheid;
-                    };
+                while ($rowSymboolGrootheid = mysql_fetch_array($resultaatSymboolGrootheid)) {
+                    $arrSymboolGrootheid[]=$rowSymboolGrootheid['grootheid_symbool'];
                 }
                 header('Content-Type: application/json');
                 echo json_encode($arrSymboolGrootheid);
