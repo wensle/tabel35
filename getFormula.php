@@ -1,10 +1,29 @@
 <?php
 session_start();
+
 include_once('db.php');
+
 if(isset($_SESSION['idNode']))
     $_SESSION['idNode']++;
 else
     $_SESSION['idNode'] = 1;
+
+if(!isset($_SESSION['arrSymboolGrootheid'])){
+	$querySymboolGrootheid = sprintf("SELECT `grootheid_symbool` FROM `webapp`.`grootheden`");
+
+	$resultaatSymboolGrootheid = mysql_query($querySymboolGrootheid);
+
+	if (!$resultaatSymboolGrootheid) {
+	    $message  = 'Invalid query: ' . mysql_error() . "\n";
+	    $message .= 'Whole query: ' . $querySymboolGrootheid;
+	    die($message);
+	}
+
+	while ($rowSymboolGrootheid = mysql_fetch_array($resultaatSymboolGrootheid)) {
+	    $_SESSION['arrSymboolGrootheid'][]=$rowSymboolGrootheid['grootheid_symbool'];
+	}
+}
+
 $grootheidSymbool = $_GET["grootheidSymbool"];
 
 function getFormule($grootheidSymbool){
@@ -48,6 +67,7 @@ function getFormule($grootheidSymbool){
 	$first["name"] = $rows[0]["grootheid"];
 
 	foreach ($rows as $row) {
+		$_SESSION['idNode']++;
 		if (empty($first["children"])) {
 			$first["children"][] = array(
 				"id" => "node" . $_SESSION["idNode"],
@@ -70,8 +90,8 @@ function getFormule($grootheidSymbool){
 
 	foreach ($rows as $row) {
 		foreach ($first["children"] as $firstIndex => $second) {
+			$_SESSION['idNode']++;
 			if (empty($first["children"][$firstIndex]["children"])) {
-
 				if ($first["children"][$firstIndex]["name"] == $row["groep_formules"]) {
 				$first["children"][$firstIndex]["children"][] = array(
 					"id" => "node" . $_SESSION["idNode"],
@@ -93,16 +113,30 @@ function getFormule($grootheidSymbool){
 		}//end foreach $first
 	}// end foreach $rows
 
+		// print_r($rows);
+	foreach ($rows as $key => $row) {
+		$formulePieces = explode(",", $rows[$key]["formule"]);
+		$arr = array();
+		foreach ($formulePieces as $key => $value) {
+			if (in_array($value, $_SESSION["arrSymboolGrootheid"])) {
+				$value = "\href{javascript:getFormula(" . '"' . "'" . $value . "'" . '"' . "{" . $value . "}";
+			}
+			array_push($arr, $value);
+			$rows[$key]["formule"] = implode("", $arr);
+		}
+	}
+
 	foreach ($rows as $row) {
 		foreach ($first["children"] as $firstIndex => $second) {
 			foreach ($second["children"] as $secondIndex => $third) {
-				 if ($first["children"][$firstIndex]["children"][$secondIndex]["name"] == $row["subgroep_formules"]) {
+				$_SESSION['idNode']++;
+				 if ($first["children"][$firstIndex]["children"][$secondIndex]["name"] == $rows[$firstIndex]["subgroep_formules"]) {
 					$first["children"][$firstIndex]["children"][$secondIndex]["children"][] = array(
 						"id" => "node" . $_SESSION["idNode"],
-						"name" => $row["formule_omschrijving"],
+						"name" => $rows[$firstIndex]["formule_omschrijving"],
 						"data" => array(
-							"formule" => $row["formule"],
-							"symbool" => $row['grootheid_symbool']
+							"formule" => $rows[$firstIndex]["formule"],
+							"symbool" => $rows[$firstIndex]['grootheid_symbool']
 							),
 						"children" => array());
 				}
