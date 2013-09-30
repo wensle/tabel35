@@ -112,33 +112,42 @@ function getFormule($grootheidSymbool){
 			}
 		}//end foreach $first
 	}// end foreach $rows
+// \frac{\href{javascript:getFormula("'s'")}{s}}}{\href{javascript:getFormula("'v'")}{v}}}
+	// \frac{\href{javascript:getFormula("'s'")}{s}{\href{javascript:getFormula("'v'")}{v}
 
-		// print_r($rows);
+
 	foreach ($rows as $key => $row) {
-		$formulePieces = explode(",", $rows[$key]["formule"]);
 		$arr = array();
-		foreach ($formulePieces as $key => $value) {
+		$formulePieces = explode(",", $rows[$key]["formule"]);
+		foreach ($formulePieces as $poop => $value) {
 			if (in_array($value, $_SESSION["arrSymboolGrootheid"])) {
-				$value = "\href{javascript:getFormula(" . '"' . "'" . $value . "'" . '"' . "{" . $value . "}";
+				$href = sprintf("\href{javascript:getFormula('\"%s\"')}{%s}", $value, $value);
+				array_push($arr, $href);
+			} else{
+				array_push($arr, $value);
 			}
-			array_push($arr, $value);
-			$rows[$key]["formule"] = implode("", $arr);
 		}
+		$rows[$key]["formule"] = implode("", $arr);
 	}
+		// print_r($rows);
 
 	foreach ($rows as $row) {
 		foreach ($first["children"] as $firstIndex => $second) {
 			foreach ($second["children"] as $secondIndex => $third) {
 				$_SESSION['idNode']++;
-				 if ($first["children"][$firstIndex]["children"][$secondIndex]["name"] == $rows[$firstIndex]["subgroep_formules"]) {
+				$formule = array();
+				$formule[] = array(
+						"id" => "node" . $_SESSION["idNode"],
+						"name" => "$" . $row["formule"] . "$",
+						"data" => new stdClass(),
+						"children" => array());
+				$_SESSION['idNode']++;
+				 if ($first["children"][$firstIndex]["children"][$secondIndex]["name"] == $row["subgroep_formules"]) {
 					$first["children"][$firstIndex]["children"][$secondIndex]["children"][] = array(
 						"id" => "node" . $_SESSION["idNode"],
-						"name" => $rows[$firstIndex]["formule_omschrijving"],
-						"data" => array(
-							"formule" => $rows[$firstIndex]["formule"],
-							"symbool" => $rows[$firstIndex]['grootheid_symbool']
-							),
-						"children" => array());
+						"name" => $row["formule_omschrijving"],
+						"data" => new stdClass(),
+						"children" => $formule); 
 				}
 			}
 		}

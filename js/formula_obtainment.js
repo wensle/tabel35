@@ -5,41 +5,27 @@ function getFormula(grootheidSymbool){
 	};
 	$.getJSON("getFormula.php", data, function(json){
 		console.log("getFormula.php is gelukt!");
-		console.log(json);
 		var arrFormulePieces = [];
-			$.each(json['children'], function(formuleIndex, formuleDB){
-				arrFormulePieces = formuleDB.data.formule.split(",");
-				var arr = [], href = "";
-				$.each(arrFormulePieces, function(index, value){
-					if ($.inArray(value, arrGrootheidSybool) > -1){
-						href = "\\href{javascript:getFormula(\"\'" + value +"\'\")}" + "{" + value + "}";
-						arr.push(href);
-					}
-					else {
-						arr.push(value);
-					}
-					json['children'][formuleIndex].data.formule = arr.join("");
-				});
-				$( '<p>', {
-					html: '$$' + json['children'][formuleIndex].data.symbool + '= ' + json['children'][formuleIndex].data.formule + '$$',
-					'class': 'formula'
-				}).appendTo( "body" );
-				MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-				console.log(json);
+			$.each(json['children'], function(index1, grootheid){
+				$.each(grootheid["children"], function(index2, groep){
+						$.each(groep["children"], function(index3, subgroep){
+								$.each(subgroep["children"], function(index4, formule){
+										$.each(formule, function(index5, niks){
+										$( '<p>', {
+											html: formule["name"],
+											'class': 'formula'
+										}).appendTo( "body" );
+										MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+									});
+							});
+					});
 			});
 	})
-	.fail(function() { console.log("FAIL: " + grootheidSymbool); });
-}
-
-function getFormulaJit(grootheidSymbool){
+});
 
 }
 
 $(document).ready(function() {
-	$.getJSON('getArrayGrootheidSymbool.php', function(json){
-		console.log("AJAX: getArrayGrootheidSymbool.php is gelukt");
-		window.arrGrootheidSybool = json;
-			});
 	(function() {
 		getFormula("'t'");
 	})();
